@@ -1,0 +1,22 @@
+<nav class="menubar">
+    <div class="logo">Opencrafts</div>
+    <button class="hamburger" (click)="toggleDrawer()">
+        &#9776;
+    </button>
+    <ul class="menu">
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/services">Services</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+    </ul>
+    <ul class="social-icons">
+        <li><a href="https://github.com" target="_blank"><fa-icon [icon]="faGithub"></fa-icon></a></li>
+        <li><a href="https://instagram.com" target="_blank"><fa-icon [icon]="faInstagram"></fa-icon></a></li>
+        <li><a href="https://linkedin.com" target="_blank"><fa-icon [icon]="faLinkedin"></fa-icon></a></li>
+        <li><a href="https://x.com" target="_blank"><fa-icon [icon]="faX"></fa-icon></a></li>
+    </ul>
+</nav>
+
+@if (drawerOpen()) {
+    <app-drawer />
+}
