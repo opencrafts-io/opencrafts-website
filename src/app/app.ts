@@ -4,7 +4,7 @@ import { CoreModule } from './core/core-module';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CoreModule],
+  imports: [CoreModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
