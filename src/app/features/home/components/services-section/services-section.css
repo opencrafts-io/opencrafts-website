@@ -1,0 +1,93 @@
+.dark-section {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+}
+
+.section-heading h3 {
+    font-family: var(--font-din);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-heading h1 {
+    font-family: var(--font-fredoka);
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    max-width: 700px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.feature-card {
+    padding: 2rem;
+    border-radius: 12px;
+    color: #ffffff;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.icon-box {
+  background-color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.custom-icon {
+  font-size: 2rem;
+  color: #333;
+}
+
+
+.card-one {
+    background-color: #1e1e2f;
+    /* dark blue-gray */
+}
+
+.card-two {
+    background-color: #2f1e2e;
+    /* deep plum/maroon */
+}
+
+.card-three {
+    background-color: #1e2e2f;
+    /* teal-gray */
+}
+
+.feature-card h2 {
+    font-family: var(--font-din);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+}
+
+.feature-card p {
+    font-family: var(--font-din);
+    font-size: 1rem;
+    line-height: 1.5;
+}
