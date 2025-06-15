@@ -1,6 +1,7 @@
 .page-container {
   scroll-snap-type: y mandatory;
   height: 100vh;
+  scroll-behavior: smooth;
 }
 
 .page-section {
@@ -17,6 +18,13 @@
   box-sizing: border-box; 
   position: relative;
   z-index: 1;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.page-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .page-section::before {
