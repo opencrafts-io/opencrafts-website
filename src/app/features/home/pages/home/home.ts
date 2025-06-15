@@ -10,5 +10,20 @@ import { Footer } from '../../../../core/layout/footer/footer';
   styleUrl: './home.css'
 })
 export class Home {
+  //to look at later
+  ngAfterViewInit() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.page-section').forEach(section => {
+      observer.observe(section);
+    });
+  }
+
 
 }
