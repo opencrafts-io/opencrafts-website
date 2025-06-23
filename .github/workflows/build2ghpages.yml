@@ -28,15 +28,14 @@ jobs:
       - name: Clean Previous Build
         run: rm -rf dist
 
-      - name: Build Angular App with Custom BaseHref
+      - name: Build Angular App with BaseHref "/"
         run: |
           npm run build -- --configuration production --base-href "/"
 
-      - name: List Built Files[Debug]
+      - name: List Built Files [Debug]
         run: |
           echo "Listing build output:"
           find dist -type f
-          echo "Checking for index.html..."
           INDEX=$(find dist -name "index.html")
           if [ -z "$INDEX" ]; then
             echo "ERROR: index.html not found in build output."
@@ -48,17 +47,8 @@ jobs:
         run: |
           INDEX_PATH=$(find dist -name "index.html" | head -n1)
           echo "Extracted baseHref from $INDEX_PATH:"
-          grep -i '<base href=' "$INDEX_PATH" || echo "baseHref tag missing!"
+          grep -i '<base href=' "$INDEX_PATH" || echo "️ baseHref tag missing!"
 
-      - name: Check for Empty Output Directory
-        run: |
-          OUTPUT_DIR=dist/opencrafts-website
-          COUNT=$(find "$OUTPUT_DIR" -type f | wc -l)
-          echo "Files in build output: $COUNT"
-          if [ "$COUNT" -lt 2 ]; then
-            echo "Build output is too small — something likely failed."
-            exit 1
-          fi
       - name: Detect Output Directory
         id: detect
         run: |
@@ -67,16 +57,16 @@ jobs:
           elif [ -d dist/browser ]; then
             echo "output_dir=dist/browser" >> "$GITHUB_OUTPUT"
           else
-            echo " No valid output folder found!"
+            echo "No valid output folder found!"
             exit 1
           fi
 
-      - name: 🚀 Deploy to GitHub Pages
+
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ${{ steps.detect.outputs.output_dir }}
           clean: true
           single-commit: true
-          commit-message: "Deployed Angular site"
-
+          commit-message: "🚀 Deployed Angular site with custom domain"
