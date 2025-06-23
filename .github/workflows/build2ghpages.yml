@@ -1,4 +1,4 @@
-name: Dynamic Angular Deploy to GitHub Pages
+name: Deploy Angular to GitHub Pages
 
 on:
   push:
@@ -7,21 +7,17 @@ on:
   pull_request:
     branches:
       - main
-permissions:
-  contents: write
-
-env:
-  NG_CLI_ANALYTICS: false
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    name: Build and Deploy Angular
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -29,24 +25,46 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Set Project Name
-        id: detect
-        run: echo "project=opencrafts-website" >> $GITHUB_OUTPUT
+      - name: Clean Previous Build
+        run: rm -rf dist
 
-      - name: Patch baseHref to '/'
+      - name: Build Angular App with Custom BaseHref
         run: |
-          FILE="angular.json"
-          sed -i 's|"baseHref": "__BASE_HREF__"|"baseHref": "/"|g' $FILE
+          npm run build -- --configuration production --base-href "/"
 
-      - name: Build Angular Project
-        run: npm run build -- --configuration production
-
-      - name: Add CNAME for Custom Domain
+      - name: List Built Files[Debug]
         run: |
-          echo "www.opencrafts.io" > dist/${{ steps.detect.outputs.project }}/CNAME
+          echo "Listing build output:"
+          find dist -type f
+          echo "Checking for index.html..."
+          INDEX=$(find dist -name "index.html")
+          if [ -z "$INDEX" ]; then
+            echo "ERROR: index.html not found in build output."
+            exit 1
+          fi
+          echo "✅ index.html found at: $INDEX"
+
+      - name: Inspect index.html BaseHref
+        run: |
+          INDEX_PATH=$(find dist -name "index.html" | head -n1)
+          echo "Extracted baseHref from $INDEX_PATH:"
+          grep -i '<base href=' "$INDEX_PATH" || echo "baseHref tag missing!"
+
+      - name: Check for Empty Output Directory
+        run: |
+          OUTPUT_DIR=dist/opencrafts-website
+          COUNT=$(find "$OUTPUT_DIR" -type f | wc -l)
+          echo "Files in build output: $COUNT"
+          if [ "$COUNT" -lt 2 ]; then
+            echo "Build output is too small — something likely failed."
+            exit 1
+          fi
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/${{ steps.detect.outputs.project }}
+          folder: dist/opencrafts-website
+          clean: true
+          single-commit: true
+          commit-message: "🚀 Deployed OpenCrafts site"
