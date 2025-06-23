@@ -1,0 +1,52 @@
+name: Dynamic Angular Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+env:
+  NG_CLI_ANALYTICS: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Detect Project Name
+        id: detect
+        run: |
+          PROJECT=$(npx ng config defaultProject)
+          echo "project=$PROJECT" >> $GITHUB_OUTPUT
+
+      - name: Patch baseHref to '/'
+        run: |
+          FILE="angular.json"
+          sed -i 's|"baseHref": "__BASE_HREF__"|"baseHref": "/"|g' $FILE
+
+      - name: Build Angular Project
+        run: npm run build -- --configuration production
+
+      - name: Add CNAME for Custom Domain
+        run: |
+          echo "www.opencrafts.io" > dist/${{ steps.detect.outputs.project }}/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist/${{ steps.detect.outputs.project }}
