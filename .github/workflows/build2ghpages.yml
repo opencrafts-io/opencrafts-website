@@ -28,26 +28,46 @@ jobs:
       - name: Clean Previous Build
         run: rm -rf dist
 
-      - name: Build Angular App
+      - name: Build Angular App with BaseHref "/"
         run: |
-          npm run build -- --configuration production --base-href="/"
+          npm run build -- --configuration production --base-href "/"
 
-      - name: Detect Angular Output Directory
-        id: detect
+      - name: List Built Files [Debug]
         run: |
-          echo "Searching for index.html in dist/*"
-          FILE=$(find dist -name index.html | head -n 1)
-          if [ -z "$FILE" ]; then
-            echo "No index.html found!"
+          echo "Listing build output:"
+          find dist -type f
+          INDEX=$(find dist -name "index.html")
+          if [ -z "$INDEX" ]; then
+            echo "ERROR: index.html not found in build output."
             exit 1
           fi
-          DIR=$(dirname "$FILE")
-          echo "Found output directory: $DIR"
-          echo "output_dir=$DIR" >> "$GITHUB_OUTPUT"
+          echo "index.html found at: $INDEX"
 
-      - name: 🚀 Deploy to GitHub Pages
+      - name: Inspect index.html BaseHref
+        run: |
+          INDEX_PATH=$(find dist -name "index.html" | head -n1)
+          echo "Extracted baseHref from $INDEX_PATH:"
+          grep -i '<base href=' "$INDEX_PATH" || echo "️ baseHref tag missing!"
+
+      - name: Detect Output Directory
+        id: detect
+        run: |
+          if [ -d dist/opencrafts-website ]; then
+            echo "output_dir=dist/opencrafts-website" >> "$GITHUB_OUTPUT"
+          elif [ -d dist/browser ]; then
+            echo "output_dir=dist/browser" >> "$GITHUB_OUTPUT"
+          else
+            echo "No valid output folder found!"
+            exit 1
+          fi
+
+
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ${{ steps.detect.outputs.output_dir }}
-
+          clean: true
+          single-commit: true
+          commit-message: "🚀 Deployed Angular site with custom domain"
+          force: true
