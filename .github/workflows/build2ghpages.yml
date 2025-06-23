@@ -49,17 +49,18 @@ jobs:
           echo "Extracted baseHref from $INDEX_PATH:"
           grep -i '<base href=' "$INDEX_PATH" || echo "️ baseHref tag missing!"
 
-      - name: Detect Output Directory
+      - name: Detect Angular Output Directory
         id: detect
         run: |
-          if [ -d dist/opencrafts-website ]; then
-            echo "output_dir=dist/opencrafts-website" >> "$GITHUB_OUTPUT"
-          elif [ -d dist/browser ]; then
-            echo "output_dir=dist/browser" >> "$GITHUB_OUTPUT"
-          else
-            echo "No valid output folder found!"
+          echo "Searching for index.html in dist/*"
+          FILE=$(find dist -name index.html | head -n 1)
+          if [ -z "$FILE" ]; then
+            echo "No index.html found!"
             exit 1
           fi
+          DIR=$(dirname "$FILE")
+          echo "Found output directory: $DIR"
+          echo "output_dir=$DIR" >> "$GITHUB_OUTPUT"
 
 
       - name: Deploy to GitHub Pages
