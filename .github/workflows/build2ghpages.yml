@@ -68,7 +68,4 @@ jobs:
         with:
           branch: gh-pages
           folder: ${{ steps.detect.outputs.output_dir }}
-          clean: true
-          single-commit: true
-          commit-message: "🚀 Deployed Angular site with custom domain"
-          force: true
+
