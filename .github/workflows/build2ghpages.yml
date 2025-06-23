@@ -62,10 +62,13 @@ jobs:
           echo "Found output directory: $DIR"
           echo "output_dir=$DIR" >> "$GITHUB_OUTPUT"
 
+      - name: Copy index.html to 404.html to enable SPA routing
+        run: |
+          cp "${{ steps.detect.outputs.output_dir }}/index.html" "${{ steps.detect.outputs.output_dir }}/404.html"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: ${{ steps.detect.outputs.output_dir }}
-
+          force: true
