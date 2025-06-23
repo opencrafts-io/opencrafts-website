@@ -42,7 +42,7 @@ jobs:
             echo "ERROR: index.html not found in build output."
             exit 1
           fi
-          echo "✅ index.html found at: $INDEX"
+          echo "index.html found at: $INDEX"
 
       - name: Inspect index.html BaseHref
         run: |
@@ -59,12 +59,24 @@ jobs:
             echo "Build output is too small — something likely failed."
             exit 1
           fi
+      - name: Detect Output Directory
+        id: detect
+        run: |
+          if [ -d dist/opencrafts-website ]; then
+            echo "output_dir=dist/opencrafts-website" >> "$GITHUB_OUTPUT"
+          elif [ -d dist/browser ]; then
+            echo "output_dir=dist/browser" >> "$GITHUB_OUTPUT"
+          else
+            echo " No valid output folder found!"
+            exit 1
+          fi
 
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/opencrafts-website
+          folder: ${{ steps.detect.outputs.output_dir }}
           clean: true
           single-commit: true
-          commit-message: "🚀 Deployed OpenCrafts site"
+          commit-message: "Deployed Angular site"
+
