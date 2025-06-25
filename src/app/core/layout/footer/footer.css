@@ -7,6 +7,38 @@ footer {
   font-family: var(--font-din);
 }
 
+footer a
+{
+  text-decoration: none;
+  color: #949292;
+}
+
+.wave-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 100px; /* controls the wave height */
+}
+
+
+/* Dark footer variant for homepage */
+footer.home {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+footer.home h1,
+footer.home h2,
+footer.home p,
+footer.home label {
+  color: #ffffff;
+}
+
 footer h1 {
   font-size: 3.5rem;
   color: black;
@@ -14,6 +46,7 @@ footer h1 {
   margin: auto;
   margin-bottom: 50px;
   font-family: var(--font-fredoka);
+  text-align: center;
 }
 
 footer h2 {
@@ -25,14 +58,16 @@ footer h2 {
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
   width: 90%;
   margin: auto;
+  margin-bottom: 2rem;
+  gap: 5rem;
 }
 
 .footer-content div {
-  margin: 0 1rem;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -40,31 +75,123 @@ footer h2 {
 
 .footer-bottom {
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   color: #949292;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   width: 90%;
   margin: auto;
+  gap: 1rem;
+}
+
+.footer-bottom div {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 footer p,
 footer label {
   cursor: pointer;
+  margin: 0;
 }
 
-.footer-bottom div {
-  margin: 0 1rem;
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-}
-
-footer hr
-{
+footer hr {
   width: 90%;
-  margin: auto;
-  margin-top: 120px;
-  margin-bottom: 10px;
+  margin: 20px auto 10px auto;
   border-color: #9492921f;
+}
+
+.menu li a {
+  font-family: var(--font-din);
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.menu li a:hover {
+  color: g;
+  border-bottom: 2px solid #ffcc00;
+}
+
+.social-icons {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.social-icons li a {
+  color: black;
+  font-size: 2.5rem;
+  transition: color 0.3s ease;
+}
+
+footer.home .social-icons li a {
+  color: white;
+}
+
+
+.social-icons li a:hover {
+  color: #ffcc00;
+}
+
+.active-link {
+  font-weight: bold;
+  border-bottom: 2px solid #ffcc00;
+}
+
+/* ✅ Responsive media queries */
+@media (max-width: 1024px) {
+  footer h1 {
+    font-size: 2.5rem;
+  }
+
+  .footer-content {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  footer h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  footer h2 {
+    font-size: 1rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .footer-content div {
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-bottom div {
+    justify-content: center;
+  }
+
+  footer hr {
+    margin-top: 80px;
+  }
 }
