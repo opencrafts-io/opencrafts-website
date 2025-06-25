@@ -7,6 +7,7 @@
 .typed-text {
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cursor {
@@ -31,6 +32,7 @@
 .social-icons {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   margin: 0;
   padding: 0;
@@ -42,51 +44,93 @@
   transition: color 0.3s ease;
 }
 
-.social-icons li a:hover {
+.social-icons li a:hover,
+.social-icons li a:focus {
   color: #ffcc00;
+  outline: none;
 }
 
 .card-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 2rem;
   margin-bottom: 150px;
+  justify-content: center;
 }
 
 .card {
   padding: 1rem;
-  margin-bottom: 1rem;
   width: 45%;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #fff;
 }
 
-.card h2
-{
+.card h2,
+.card label,
+.card p {
   font-family: var(--font-din);
+}
+
+.card h2 {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.card label
-{
-  font-family: var(--font-din);
+.card label {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
-.card p
-{
-  font-family: var(--font-din);
+.card p {
   font-size: 1.2rem;
   line-height: 1.5;
 }
 
-.title
-{
+.title {
   font-family: var(--font-din);
   font-size: 1.5rem;
-  margin-bottom: 1rem;
-  margin: 0;
-  margin-top: -30px;
+  margin: -10px 0 1rem 0;
 }
 
+/* ✅ Responsive tweaks */
+@media (max-width: 1024px) {
+  .typing-container {
+    font-size: 42px;
+  }
+
+  .container {
+    padding: 30px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .typing-container {
+    font-size: 32px;
+  }
+
+  .card p {
+    font-size: 1rem;
+  }
+
+  .card h2 {
+    font-size: 1.3rem;
+  }
+
+  .card-grid {
+    gap: 1.5rem;
+  }
+
+  .container {
+    padding: 20px;
+  }
+}
