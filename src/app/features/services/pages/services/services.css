@@ -58,8 +58,8 @@
 
 
 .service-image img {
-    width: 250px;
-    height: 250px;
+    width: 15.625rem;
+    height: 15.625rem;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -93,4 +93,59 @@
 
 .learn-btn:hover {
     background-color: #4338ca;
+}
+
+@media (max-width: 468px) {
+    .services-section {
+        padding: 2rem;
+        gap: 1rem;
+    }
+
+    .service-item {
+        flex-direction: column;
+    }
+
+    .service-item.reverse {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 469px) and (max-width: 600px) {
+    .services-section {
+        padding: 2rem;
+        gap: 1rem;
+    }
+
+    .service-item {
+        flex-direction: column;
+    }
+
+    .service-item.reverse {
+        flex-direction: column;
+    }
+
+    .service-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .service-content h2 {
+        font-size: 2rem;
+    }
+
+    .service-content p {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 601px) {
+    .service-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .service-content p {
+        font-size: 1.5rem;
+    }
 }

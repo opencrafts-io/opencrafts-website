@@ -59,3 +59,7 @@
     --font-din-condensed: 'DIN Condensed', sans-serif;
     --font-din-expanded: 'DIN Expanded', sans-serif;
 }
+
+body.modal-open {
+  overflow: hidden;
+}

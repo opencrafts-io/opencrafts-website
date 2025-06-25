@@ -4,7 +4,7 @@
         <img [src]="selectedService()?.image" alt="{{ selectedService()?.title }}" />
         <h2>{{ selectedService()?.title }}</h2>
         <p>{{ selectedService()?.description }}</p>
-        <button class="close-btn" (click)="closeModal()">Close</button>
+        <fa-icon class="close-btn" [icon]="faXmark" (click)="closeModal()"></fa-icon>
     </div>
 </div>
 }

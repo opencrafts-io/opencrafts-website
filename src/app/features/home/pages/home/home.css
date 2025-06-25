@@ -1,6 +1,6 @@
 .page-container {
   scroll-snap-type: y mandatory;
-  height: 100vh;
+  /* min-height: 100vh; */
   scroll-behavior: smooth;
 }
 
@@ -15,10 +15,10 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
-  transform: translateY(50px);
+  transform: translateY(0);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
@@ -34,13 +34,12 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 2;
 }
 
 .flex-container {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 4rem;
@@ -51,8 +50,7 @@
 }
 
 .text-content {
-  flex: 1;
-  max-width: 50%;
+  max-width: 100%;
 }
 
 .text-content h1 {
@@ -62,38 +60,13 @@
   margin-bottom: 1rem;
   color: white;
 }
+
 .text-content p {
-    font-family: var(--font-din);
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    font-weight: 500;
-    color: white;
-}
-
-.image-content {
-  position: relative;
-}
-
-.image-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-}
-
-.image-1 {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  display: block;
-}
-
-.image-2 {
-  position: absolute;
-  bottom: -20px;  
-  right: -20px;  
-  max-width: 150px; 
-  border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-din);
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  color: white;
 }
 
 .cta-buttons {
@@ -132,4 +105,52 @@
   background-color: #eef2ff;
 }
 
+@media (max-width: 468px) {
+  .page-section {
+    min-height: 100vh;
+  }
 
+  .flex-container {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .text-content p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  /* .text-content {
+    max-width: 100%;
+  } */
+
+  .text-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .text-content p {
+    font-size: 1rem;
+  }
+
+  .cta-buttons {
+    justify-content: center;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* @media (min-width: 1024px) {
+  .text-content {
+    max-width: 100%;
+  }
+} */
