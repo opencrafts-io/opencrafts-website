@@ -3,12 +3,12 @@ import { Component, input, signal } from '@angular/core';
 import { faDatabase, faFileImport, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 import { ServiceOverview } from "../../components/service-overview/service-overview/service-overview";
 import { Service } from '../../models/service.model';
+import { CoreModule } from "../../../../core/core-module";
 
 
 
 @Component({
-  selector: 'app-services',
-  imports: [FontAwesomeModule, ServiceOverview],
+  imports: [FontAwesomeModule, ServiceOverview, CoreModule],
   templateUrl: './services.html',
   styleUrl: './services.css'
 })
@@ -19,7 +19,7 @@ export class Services {
 
   selectedService = signal<any | null>(null);
 
-  services:Service[] = [
+  services: Service[] = [
     {
       id: 1,
       title: 'Verisafe',
@@ -43,12 +43,29 @@ export class Services {
     }
   ];
 
+  ngOnInit() {
+    document.addEventListener('keydown', this.handleEscape);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.handleEscape);
+  }
+
+  handleEscape = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  };
+
   openModal(service: any) {
     this.selectedService.set(service);
+    document.body.classList.add('modal-open');
   }
 
   closeModal() {
     this.selectedService.set(null);
+    document.body.classList.remove('modal-open');
   }
+
 
 }
