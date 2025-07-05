@@ -12,15 +12,22 @@
     box-sizing: border-box;
 }
 
-.section-heading h3 {
+.section-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-heading h2 {
     font-family: var(--font-din);
-    font-size: 1.25rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .section-heading h1 {
     font-family: var(--font-fredoka);
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     margin-bottom: 2rem;
     max-width: 700px;
@@ -96,19 +103,17 @@
     .dark-section {
         height: auto;
         align-items: center;
-        justify-content: flex-start;
     }
 
     .section-heading {
         gap: 0.1rem;
     }
 
-    .section-heading h3 {
-        font-size: 1rem;
-        margin-bottom: 0;
+    .section-heading h2 {
+        font-size: 1.5rem;
     }
 
-    .card-grid {
+    /* .card-grid {
         gap: 0.5rem;
         margin: 0.1rem;
     }
@@ -143,5 +148,5 @@
 
     .feature-card p {
         line-height: 1.5;
-    }
+    } */
 }
