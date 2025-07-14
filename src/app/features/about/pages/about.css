@@ -2,6 +2,7 @@
   display: inline-block;
   font-family: var(--font-fredoka);
   font-size: 54px;
+  padding: 0 3rem;
 }
 
 .typed-text {
@@ -92,6 +93,7 @@
   font-family: var(--font-din);
   font-size: 1.5rem;
   margin: -10px 0 1rem 0;
+  padding: 0.5rem 3rem;
 }
 
 /* ✅ Responsive tweaks */
