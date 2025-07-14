@@ -23,6 +23,47 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  padding: 3rem;
+}
+
+.bg-icon {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.7;
+  color: #000;
+  pointer-events: none; /* So they don't interfere with user interaction */
+}
+
+/* Position the icons */
+.top-left {
+  top: 10%;
+  left: 10%;
+}
+
+.top-right {
+  top: 10%;
+  right: 10%;
+}
+
+.bottom-left {
+  bottom: 10%;
+  left: 10%;
+}
+
+.bottom-right {
+  bottom: 10%;
+  right: 10%;
+}
+
+.center {
+  top: 60%;
+  left: 45%;
+}
+
+.center-top {
+  top: 30%;
+  left: 45%;
 }
 
 .text-content h1 {
