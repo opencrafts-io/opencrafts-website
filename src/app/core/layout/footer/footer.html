@@ -6,7 +6,7 @@
     </svg>
   </div>
 
-  <h1>How can we help? Contact us.</h1>
+  <!-- <h1>How can we help? Contact us.</h1> -->
 
   <div class="footer-content">
     <ul class="social-icons">
@@ -15,9 +15,13 @@
       <li><a href="https://www.linkedin.com/in/opencrafts-io-a10339368/" target="_blank"><fa-icon [icon]="faLinkedin"></fa-icon></a></li>
       <li><a href="https://x.com" target="_blank"><fa-icon [icon]="faX"></fa-icon></a></li>
     </ul>
+    <div class="email-contact">
+      <fa-icon [icon]="faEnvelope"></fa-icon>
+      <span><a href="mailto:info@opencrafts.io">{{email}}</a></span>
+    </div>
   </div>
 
-  <hr />
+  <!-- <hr /> -->
 
   <div class="footer-bottom">
     <p>&copy;Opencrafts {{ year }}</p>

@@ -35,6 +35,8 @@ footer.home {
 footer.home h1,
 footer.home h2,
 footer.home p,
+footer.home .footer-content .email-contact,
+footer.home .footer-content .email-contact a,
 footer.home label {
   color: #ffffff;
 }
@@ -58,12 +60,13 @@ footer h2 {
 
 .footer-content {
   display: flex;
+  flex-direction: column;
   /* justify-content: space-between; */
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   width: 90%;
   margin: auto;
   margin-bottom: 2rem;
-  gap: 5rem;
+  gap: 1rem;
 }
 
 .footer-content div {
@@ -71,6 +74,10 @@ footer h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.footer-content p {
+  font-size: 1.5rem;
 }
 
 .footer-bottom {
@@ -148,6 +155,15 @@ footer.home .social-icons li a {
   border-bottom: 2px solid #ffcc00;
 }
 
+.email-contact {
+  display: flex;
+  flex-direction: row !important;
+  font-family: var(--font-din);
+  font-size: 1.5rem;
+  margin-left: 0 !important;
+  gap: 0.1rem !important;
+}
+
 /* ✅ Responsive media queries */
 @media (max-width: 1024px) {
   footer h1 {
@@ -193,5 +209,9 @@ footer.home .social-icons li a {
 
   footer hr {
     margin-top: 80px;
+  }
+
+  .email-contact {
+    justify-content: center !important;
   }
 }
