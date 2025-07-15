@@ -71,63 +71,100 @@
 
 @media (max-width: 468px) {
   .full-height-section {
+    flex-direction: column;
+    padding: 1.5rem;
     height: auto;
   }
 
   .section-container {
-    flex-direction: column;
-    padding: 1rem;
-    gap: 0.1rem;
-
+    gap: 1.5rem;
+    padding: 0;
+    align-items: center;
   }
 
   .text-area {
-    order: 1;
-    text-align: center;
-    gap: 0.1rem;
-  }
-
-  .icons-area {
-    order: 2;
     gap: 1rem;
+    text-align: center;
   }
 
   .text-area h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.1rem;
+    font-size: 2rem;
   }
 
   .text-area p {
     font-size: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .icons-area {
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .icon-item fa-icon {
     font-size: 2rem;
   }
+
+  .icon-item span {
+    font-size: 0.9rem;
+  }
+
+  .icon-item .coming-soon {
+    font-size: 0.75rem;
+  }
 }
+
 
 @media (max-width: 768px) {
   .full-height-section {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
     height: auto;
   }
 
   .section-container {
     flex-direction: column;
-    padding: 2rem;
-    gap: 0.1rem;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
   }
 
   .text-area {
-    order: 1;
     text-align: center;
-    gap: 0.1rem;
+    gap: 1.25rem;
+  }
+
+  .text-area h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .text-area p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
   }
 
   .icons-area {
-    order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .icon-item fa-icon {
+    font-size: 2.25rem;
+  }
+
+  .icon-item span {
+    font-size: 0.95rem;
+  }
+
+  .icon-item .coming-soon {
+    font-size: 0.8rem;
   }
 }
+
 
 @media (max-width: 1024px) {
   .full-height-section {
