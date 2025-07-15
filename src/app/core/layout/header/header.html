@@ -16,5 +16,5 @@
 </nav>
 
 @if (drawerOpen()) {
-    <app-drawer />
+    <app-drawer (linkClicked)="toggleDrawer()"/>
 }
