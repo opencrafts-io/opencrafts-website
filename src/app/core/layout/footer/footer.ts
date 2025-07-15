@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGithub, faInstagram, faLinkedin, faXTwitter  } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faInstagram, faLinkedin, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,6 +11,7 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./footer.css']
 })
 export class Footer {
+  email = 'info@opencrafts.io';
   year: number = new Date().getFullYear();
   isHome: boolean = false;
 

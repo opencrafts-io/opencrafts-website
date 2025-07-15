@@ -2,6 +2,7 @@
   display: inline-block;
   font-family: var(--font-fredoka);
   font-size: 54px;
+  padding: 0 3rem;
 }
 
 .typed-text {
@@ -92,12 +93,17 @@
   font-family: var(--font-din);
   font-size: 1.5rem;
   margin: -10px 0 1rem 0;
+  padding: 0.5rem 3rem;
 }
 
-/* ✅ Responsive tweaks */
 @media (max-width: 1024px) {
   .typing-container {
     font-size: 42px;
+    padding: 0;
+  }
+
+  .title {
+    padding: 0.5rem 0;
   }
 
   .container {
@@ -116,6 +122,11 @@
 @media (max-width: 600px) {
   .typing-container {
     font-size: 32px;
+    padding: 0;
+  }
+
+  .title {
+    padding: 0.5rem 0;
   }
 
   .card p {
