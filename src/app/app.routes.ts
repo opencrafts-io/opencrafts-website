@@ -22,4 +22,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/services/services-module').then((m) => m.ServicesModule),
   },
+  {
+    path: 'policy',
+    loadChildren: () =>
+      import('./features/policy/policy-module').then((m) => m.PolicyModule),
+  },
 ];
