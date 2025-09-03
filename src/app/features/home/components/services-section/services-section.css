@@ -7,20 +7,28 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100vh;
+    min-height: 100vh;
     scroll-snap-align: start;
     box-sizing: border-box;
 }
 
-.section-heading h3 {
+.section-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.section-heading h2 {
     font-family: var(--font-din);
-    font-size: 1.25rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .section-heading h1 {
     font-family: var(--font-fredoka);
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     margin-bottom: 2rem;
     max-width: 700px;
@@ -48,19 +56,19 @@
 }
 
 .icon-box {
-  background-color: white;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  border-radius: 0.75rem;
-  margin-bottom: 1rem;
-  width: fit-content;
+    background-color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    width: fit-content;
 }
 
 .custom-icon {
-  font-size: 2rem;
-  color: #333;
+    font-size: 2rem;
+    color: #333;
 }
 
 
@@ -90,4 +98,56 @@
     font-family: var(--font-din);
     font-size: 1rem;
     line-height: 1.5;
+}
+
+@media (max-width: 468px) {
+    .dark-section {
+        height: auto;
+        align-items: center;
+    }
+
+    .section-heading {
+        gap: 0.1rem;
+    }
+
+    .section-heading h2 {
+        font-size: 1.5rem;
+    }
+
+    /* .card-grid {
+        gap: 0.5rem;
+        margin: 0.1rem;
+    }
+
+    .feature-card {
+        padding: 0.5rem;
+        border-radius: 6px;
+    }
+
+    .heading {
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    .icon-box {
+        border-radius: 0.35rem;
+        margin-bottom: 0;
+        position: absolute;
+        left: 0;
+        padding: 0.5rem;
+    }
+
+    .custom-icon {
+        font-size: 1.5rem;
+    }
+
+    .heading h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .feature-card p {
+        line-height: 1.5;
+    } */
 }
