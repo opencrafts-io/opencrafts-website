@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faDatabase, faMobileAlt, faComments, faChurch, faChampagneGlasses, faMoneyBillWave } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faMobileAlt, faComments, faChurch, faChampagneGlasses, faMoneyBillWave , faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tech-section',
@@ -15,4 +15,5 @@ export class TechSection {
   faChapel = faChurch;
   faEvent = faChampagneGlasses;
   faPayment = faMoneyBillWave;
+  faSms = faEnvelope;
 }

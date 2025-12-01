@@ -1,45 +1,65 @@
+import { Component, signal, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Component, input, signal } from '@angular/core';
-import { faDatabase, faFileImport, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
-import { ServiceOverview } from "../../components/service-overview/service-overview/service-overview";
-import { Service } from '../../models/service.model';
+import { faEnvelope, faCheckCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CoreModule } from "../../../../core/core-module";
 
+interface SMSPricingTier {
+  name: string;
+  fee: number;
+  included: number;
+  perSMS: number;
+}
 
+interface SMSService {
+  id: number;
+  title: string;
+  overview: string;
+  description: string;
+  image: string;
+  features: string[];
+  pricing: {
+    setupFee: number;
+    tiers: SMSPricingTier[];
+  };
+}
 
 @Component({
-  imports: [FontAwesomeModule, ServiceOverview, CoreModule],
+  selector: 'app-services', // Added selector
+  standalone: true,
+  imports: [CommonModule, FontAwesomeModule, CoreModule, CurrencyPipe],
   templateUrl: './services.html',
-  styleUrl: './services.css'
+  styleUrls: ['./services.css']
 })
-export class Services {
-  faDatabase = faDatabase;
-  faFileImport = faFileImport;
-  faMobileAlt = faMobileAlt;
+export class Services implements OnInit, OnDestroy {
+  // Icons
+  faSms = faEnvelope;
+  faCheck = faCheckCircle;
+  faClose = faTimes;
 
-  selectedService = signal<any | null>(null);
+  selectedService = signal<SMSService | null>(null);
 
-  services: Service[] = [
+  services: SMSService[] = [
     {
       id: 1,
-      title: 'Verisafe',
-      overview: 'Securely store and manage student records...',
-      description: 'Our robust database solution allows schools to securely manage student records, attendance, performance, and more in one centralized platform.',
-      image: 'images/phone_with_code.jpeg'
-    },
-    {
-      id: 2,
-      title: 'Magnet',
-      overview: 'Automatically sync student records from school systems...',
-      description: "Connect seamlessly to existing school systems and extract relevant student data in real time, ensuring accuracy and saving manual effort.",
-      image: 'images/another_phone_with_code.jpeg'
-    },
-    {
-      id: 3,
-      title: 'Academia App',
-      overview: 'Empower students with a smart digital assistant for school life...',
-      description: 'Our student-facing app supports daily school tasks—from timetables to assignments, co-curricular engagement, and academic tracking—all in one sleek interface.',
-      image: 'images/future_classroom2.jpeg'
+      title: 'SMS Backend API',
+      overview: 'Reliable transactional and marketing SMS infrastructure for your business.',
+      description: `Our SMS Backend API allows businesses to send bulk or individual SMS messages programmatically. It allows for seamless integration into your existing CRM or ERP systems with high throughput and low latency.`,
+      image: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?auto=format&fit=crop&q=80&w=1000', // Placeholder for demo
+      features: [
+        'High-speed Bulk SMS sending',
+        'Transactional API (OTP, Alerts)',
+        'Real-time delivery reports',
+        'Sender ID Customization'
+      ],
+      pricing: {
+        setupFee: 30000,
+        tiers: [
+          { name: 'Standard', fee: 5000, included: 0, perSMS: 0.85 },
+          { name: 'Professional', fee: 15000, included: 20000, perSMS: 0.75 },
+          { name: 'Enterprise', fee: 40000, included: 100000, perSMS: 0.60 }
+        ]
+      }
     }
   ];
 
@@ -49,6 +69,7 @@ export class Services {
 
   ngOnDestroy() {
     document.removeEventListener('keydown', this.handleEscape);
+    document.body.style.overflow = ''; // Cleanup
   }
 
   handleEscape = (event: KeyboardEvent) => {
@@ -57,15 +78,13 @@ export class Services {
     }
   };
 
-  openModal(service: any) {
+  openModal(service: SMSService) {
     this.selectedService.set(service);
-    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
   }
 
   closeModal() {
     this.selectedService.set(null);
-    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
   }
-
-
 }
