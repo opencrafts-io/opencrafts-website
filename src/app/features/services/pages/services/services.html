@@ -1,31 +1,103 @@
 <section class="services-section">
-    <div class="section-header">
-        <h3>Our Solutions</h3>
-        <h1>Designed to Empower Schools & Students</h1>
-        <p class="section-subtext">
-            We offer products that solve real academic and student-life challenges through smart automation and seamless
-            experiences.
-        </p>
-    </div>
+  <div class="container">
+    <header class="section-header">
+      <span class="badge">Our Solutions</span>
+      <h1>Empower Your Software With Opencrafts</h1>
+      <p class="section-subtext">
+        Scalable services and infrastructure designed for startups and enterprises alike.
+      </p>
+    </header>
 
-    @for (service of services; track service.id; let i = $index) {
-    <div class="service-item" [class.reverse]="i % 2 === 1">
-        <div class="service-image">
-            <img [src]="service.image" [alt]="service.title" />
+    <div class="services-grid">
+      <article class="service-card" *ngFor="let service of services">
+        <div class="card-image">
+          <img [src]="service.image" [alt]="service.title" />
+          <div class="overlay"></div>
         </div>
-        <div class="service-content">
+        <div class="card-content">
+          <div class="card-header">
+            <fa-icon [icon]="faSms" class="service-icon"></fa-icon>
             <h2>{{ service.title }}</h2>
-            <p>{{ service.overview }}</p>
-            <button class="learn-btn" (click)="openModal(service)">Learn More</button>
+          </div>
+          <p>{{ service.overview }}</p>
+          <ul class="feature-preview">
+            <li *ngFor="let feature of service.features.slice(0, 2)">
+              <fa-icon [icon]="faCheck"></fa-icon> {{ feature }}
+            </li>
+          </ul>
+          <button class="btn-primary" (click)="openModal(service)">
+            View Pricing & Details
+          </button>
         </div>
+      </article>
     </div>
-    }
+  </div>
 
+  <div class="modal-backdrop" *ngIf="selectedService() as service" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      
+      <button class="close-btn" (click)="closeModal()">
+        <fa-icon [icon]="faClose"></fa-icon>
+      </button>
 
-    @if (selectedService()) {
-    <app-service-overview [selectedService]="selectedService()" (close)="closeModal()" />
-    }
+      <div class="modal-header">
+        <div class="modal-title-group">
+            <h2>{{ service.title }}</h2>
+            <span class="setup-badge">
+                Setup Fee: {{ service.pricing.setupFee | currency:'KES ':'symbol':'1.0-0' }}
+            </span>
+        </div>
+        <p class="modal-desc">{{ service.description }}</p>
+      </div>
 
-    <app-footer />
+      <div class="modal-body">
+        <div class="features-section" *ngIf="service.features?.length">
+          <h3>Included Features</h3>
+          <div class="features-grid">
+            <div class="feature-item" *ngFor="let feature of service.features">
+              <fa-icon [icon]="faCheck"></fa-icon>
+              <span>{{ feature }}</span>
+            </div>
+          </div>
+        </div>
 
+        <div class="pricing-section" *ngIf="service.pricing">
+          <h3>Monthly Plans</h3>
+          <div class="table-wrapper">
+            <table class="pricing-table">
+              <thead>
+                <tr>
+                  <th>Tier Name</th>
+                  <th>Monthly Fee</th>
+                  <th>SMS Bundle</th>
+                  <th>Overage Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tier of service.pricing.tiers">
+                  <td class="tier-name">{{ tier.name }}</td>
+                  <td class="price">{{ tier.fee | currency:'KES ':'symbol':'1.0-0' }}</td>
+                  <td>
+                    <span *ngIf="tier.included > 0">{{ tier.included | number }} SMS</span>
+                    <span *ngIf="tier.included === 0" class="payg">Pay As You Go</span>
+                  </td>
+                  <td>{{ tier.perSMS | currency:'KES ':'symbol':'1.2-2' }} / sms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeModal()">Close</button>
+        <a class="btn-primary" href="mailto:operations@opencrafts.io?subject=Get%20Started%20with%20Opencrafts&body=Hello%2C%0A%0AI%20am%20interested%20in%20learning%20more%20about%20your%20services.%0A%0AThank%20you!">
+          Get Started
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <app-footer />
 </section>
