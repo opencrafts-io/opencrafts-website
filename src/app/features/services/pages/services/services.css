@@ -1,6 +1,6 @@
 :host {
-  --primary: #2563eb; /* Royal Blue */
-  --primary-dark: #1e40af;
+  --primary: #000000; /* Royal Blue */
+  --primary-dark: #000000;
   --secondary: #64748b;
   --bg-light: #f8fafc;
   --text-main: #1e293b;
@@ -124,7 +124,7 @@
 }
 
 .feature-preview fa-icon {
-  color: #10b981; /* Green */
+  color: #000000; /* Green */
 }
 
 /* --- Buttons --- */
@@ -228,7 +228,7 @@
 
 .setup-badge {
     background: #ecfdf5;
-    color: #047857;
+    color: #000000;
     padding: 0.25rem 0.75rem;
     border-radius: 6px;
     font-size: 0.875rem;
