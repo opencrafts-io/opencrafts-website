@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Design tokens — the single source of truth for colour, type and radius.
+
+   The chassis is deliberately quiet so the product hues can coexist without
+   competing. Neutrals carry a slight warm bias so colour never floats on top
+   of a cold grey.
+
+   Change appearance here, not inside component files.
+   ========================================================================= */
+
+/* `static` emits every token below regardless of whether a utility class
+   references it. The product hues are resolved at runtime through
+   `var(--color-<slug>)`, so Tailwind's scanner cannot see them and would
+   otherwise tree-shake them away. */
+@theme static {
+  /* --- neutrals --- */
+  --color-ink: #1c1b19; /* body text, primary buttons */
+  --color-ink-soft: #46433f; /* secondary text on paper */
+  --color-subtle: #767370; /* captions, metadata, nav rest state */
+  --color-line: #e5e3e0; /* hairlines, card borders */
+  --color-band: #f2f1ee; /* alternating section ground */
+  --color-paper: #fbfbfa; /* page ground */
+  --color-surface: #ffffff; /* cards lifted off the ground */
+
+  /* --- product hues ---
+     One per product, tuned to near-equal perceived weight. Every value below
+     clears 4.5:1 as text on --color-surface; re-check with a contrast tool
+     before changing any of them. */
+  --color-academia: #3b4ea8; /* campus     — indigo, from the Academia app icon */
+  --color-rizzit: #0f7a52; /* compliance — green, from the Rizzit mascot */
+  --color-sms: #0c7268; /* messaging  — teal, from the message icon */
+  --color-chirp: #c2436b; /* social     — rose */
+  --color-sherehe: #7c4bbf; /* events     — violet */
+  --color-verisafe: #8a6410; /* identity   — gold, from the key icon */
+  --color-veribroke: #a83a32; /* payments   — red */
+  --color-magnet: #455565; /* data       — slate, deliberately the quietest */
+
+  /* --- semantic state, deliberately separate from the product hues --- */
+  --color-ok: #1f7a3d;
+  --color-warn: #b8641c;
+  --color-destructive: #b3261e;
+
+  /* --- shadcn/ui semantic tokens, aliased onto the brand set above so both
+         systems resolve to one palette --- */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: var(--color-paper);
+  --color-secondary: var(--color-band);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-band);
+  --color-muted-foreground: var(--color-subtle);
+  --color-accent: var(--color-band);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive-foreground: var(--color-paper);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-ink);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-ink);
+
+  /* --- type --- */
+  --font-display: var(--font-din-exp), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-din), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* --- type scale (major third, 1.25) --- */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 2.875rem;
+  --text-5xl: 3.5rem;
+
+  --radius-card: 10px;
+  --radius-pill: 999px;
+}
+
+/* Components in components/ui reference a few tokens by their bare name rather
+   than through a utility class, so those need to exist outside @theme too. */
+:root {
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --foreground: var(--color-ink);
+  --background: var(--color-paper);
+  --secondary: var(--color-band);
+}
+
+/* ============================================================================
+   Base
+   ========================================================================= */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================================
+   Utilities
+   ========================================================================= */
+
+/* Uppercase micro-label, used for eyebrows and chips. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Digits that need to line up in columns. */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}

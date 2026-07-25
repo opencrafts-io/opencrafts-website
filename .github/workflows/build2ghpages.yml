@@ -1,74 +1,55 @@
-name: Deploy Angular to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
+  # Deploy on merge to main only — never from a pull request.
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Let an in-flight deploy finish rather than publishing a half-built site.
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
+    name: Build and deploy
     runs-on: ubuntu-latest
-    name: Build and Deploy Angular
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
+          bun-version: latest
 
-      - name: Install Dependencies
-        run: npm ci --legacy-peer-deps
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
-      - name: Clean Previous Build
-        run: rm -rf dist
+      - name: Lint
+        run: bun run lint
 
-      - name: Build Angular App with BaseHref "/"
+      - name: Build static export
+        run: bun run build
+
+      # Fail loudly if the export is missing a route, the domain file or the
+      # sitemap, rather than publishing a broken site.
+      - name: Verify export
         run: |
-          npm run build -- --configuration production --base-href "/"
+          set -e
+          for f in out/index.html out/about/index.html out/services/index.html \
+                   out/products/index.html out/404.html out/CNAME out/sitemap.xml; do
+            [ -f "$f" ] || { echo "MISSING: $f"; exit 1; }
+          done
+          grep -qx 'opencrafts.io' out/CNAME || { echo "CNAME content unexpected"; exit 1; }
+          echo "Export verified: $(find out -name '*.html' | wc -l) HTML files"
 
-      - name: List Built Files [Debug]
-        run: |
-          echo "Listing build output:"
-          find dist -type f
-          INDEX=$(find dist -name "index.html")
-          if [ -z "$INDEX" ]; then
-            echo "ERROR: index.html not found in build output."
-            exit 1
-          fi
-          echo "index.html found at: $INDEX"
-
-      - name: Inspect index.html BaseHref
-        run: |
-          INDEX_PATH=$(find dist -name "index.html" | head -n1)
-          echo "Extracted baseHref from $INDEX_PATH:"
-          grep -i '<base href=' "$INDEX_PATH" || echo "️ baseHref tag missing!"
-
-      - name: Detect Angular Output Directory
-        id: detect
-        run: |
-          echo "Searching for index.html in dist/*"
-          FILE=$(find dist -name index.html | head -n 1)
-          if [ -z "$FILE" ]; then
-            echo "No index.html found!"
-            exit 1
-          fi
-          DIR=$(dirname "$FILE")
-          echo "Found output directory: $DIR"
-          echo "output_dir=$DIR" >> "$GITHUB_OUTPUT"
-
-      - name: Copy index.html to 404.html to enable SPA routing
-        run: |
-          cp "${{ steps.detect.outputs.output_dir }}/index.html" "${{ steps.detect.outputs.output_dir }}/404.html"
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: ${{ steps.detect.outputs.output_dir }}
-          force: true
+          folder: out
+          clean: true
