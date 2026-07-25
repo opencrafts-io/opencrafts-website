@@ -38,12 +38,8 @@ export const metadata: Metadata = {
     description: site.description,
     images: ["/og.png"],
   },
-  icons: {
-    icon: [
-      { url: "/images/logo.svg", type: "image/svg+xml" },
-      { url: "/images/logo.png", type: "image/png" },
-    ],
-  },
+  // Icons come from the files in this directory — favicon.ico, icon.png and
+  // apple-icon.png — which take precedence over anything declared here.
 };
 
 /** Structured data. `alternateName` is what lets a search for either spelling
